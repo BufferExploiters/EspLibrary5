@@ -11,7 +11,6 @@ Config['Boxes']['Gradients']['Top'] = Color3.fromRGB(0, 255, 255)
 Config['Boxes']['Gradients']['Bot'] = Color3.fromRGB(0, 255, 255)
 
 Config['Boxes']['Bounding Box']['Enabled'] = true
-Config['Boxes']['Bounding Box']['IncludeAcsessories'] = false
 Config['Boxes']['Bounding Box']['BoxY'] = 6
 Config['Boxes']['Bounding Box']['BoxX'] = 2
 
