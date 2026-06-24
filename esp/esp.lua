@@ -1,5 +1,5 @@
-    if Library and Library.Unload then
-        pcall(Library.Unload, Library)
+    if getgenv().Library and getgenv().Library.Unload then
+        pcall(getgenv().Library.Unload, getgenv().Library)
     end
 
     local GetService = setmetatable({}, {
@@ -29,81 +29,81 @@
         Camera:GetPropertyChangedSignal("FieldOfView"):Connect(CameraCache);
         Camera:GetPropertyChangedSignal("ViewportSize"):Connect(CameraCache);
 
-        getgenv().Library = {
-            ['Directory'] = 'Esp',
-            ['Cache'] = {},
-            ['Holder'] = nil,
-            ['Threads'] = {},
-            ['Connections'] = {},
+getgenv().Library = {
+	['Directory'] = 'Esp',
+	['Cache'] = {},
+	['Holder'] = nil,
+	['Threads'] = {},
+	['Connections'] = {},
 
-            ['Table'] = {
-                ['Enabled'] = true,
-                ['Distance'] = 7520,
+	['Table'] = {
+		['Enabled'] = true,
+		['Distance'] = 7520,
 
-                ['Boxes'] = {
-                    ['Enabled'] = true,
+		['Boxes'] = {
+			['Enabled'] = true,
 
-                    ['Bounding Box'] = {
-                        ['Enabled'] = true,
-                        ['IncludeAcsessories'] = false,
-                        ['BoxX'] = 0,
-                        ['BoxY'] = 0,
-                    },
+			['Bounding Box'] = {
+				['Enabled'] = true,
+				['IncludeAcsessories'] = false,
+				['BoxX'] = 0,
+				['BoxY'] = 0,
+			},
 
-                    ['Box Glow'] = {
-                        ['Enabled'] = true,
-                        ['Top'] = Color3.fromRGB(255, 255, 255),
-                        ['Bot'] = Color3.fromRGB(255, 255, 255),
-                        ['Transparency'] = {0.9, 0.9},
-                    },
+			['Box Glow'] = {
+				['Enabled'] = true,
+				['Top'] = Color3.fromRGB(255, 255, 255),
+				['Bot'] = Color3.fromRGB(255, 255, 255),
+				['Transparency'] = {0.9, 0.9},
+			},
 
-                    ['Gradients'] = {
-                        ['Top'] = Color3.fromRGB(255, 255, 255),
-                        ['Bot'] = Color3.fromRGB(0, 0, 0),
-                    },
+			['Gradients'] = {
+				['Top'] = Color3.fromRGB(255, 255, 255),
+				['Bot'] = Color3.fromRGB(255, 255, 255),
+			},
 
-                    ['Filled'] = {
-                        ['Enabled'] = true,
-                        ['Top'] = Color3.fromRGB(255, 255, 255),
-                        ['Bot'] = Color3.fromRGB(255, 255, 255),
-                        ['Transparency'] = {1, 0.8},
-                    },
-                },
+			['Filled'] = {
+				['Enabled'] = true,
+				['Top'] = Color3.fromRGB(255, 255, 255),
+				['Bot'] = Color3.fromRGB(255, 255, 255),
+				['Transparency'] = {1, 0.8},
+			},
+		},
 
-                ['Bars'] = {
-                    ['Health Bar'] = {
-                        ['Enabled'] = true,
-                        ['Top'] = Color3.fromRGB(0, 255, 0),
-                        ['Mid'] = Color3.fromRGB(255, 170, 0),
-                        ['Bot'] = Color3.fromRGB(255, 0, 0),
-                    },
+		['Bars'] = {
+			['Health Bar'] = {
+				['Enabled'] = true,
+				['Top'] = Color3.fromRGB(0, 255, 0),
+				['Mid'] = Color3.fromRGB(255, 170, 0),
+				['Bot'] = Color3.fromRGB(255, 0, 0),
+			},
 
-                    ['Armor Bar'] = {
-                        ['Enabled'] = false,
-                        ['Top'] = Color3.fromRGB(255, 255, 255),
-                        ['Mid'] = Color3.fromRGB(220, 220, 220),
-                        ['Bot'] = Color3.fromRGB(180, 180, 180),
-                    },
-                },
+			['Armor Bar'] = {
+				['Enabled'] = false,
+				['Top'] = Color3.fromRGB(255, 255, 255),
+				['Mid'] = Color3.fromRGB(220, 220, 220),
+				['Bot'] = Color3.fromRGB(180, 180, 180),
+			},
+		},
 
-                ['Texts'] = {
-                    ['Name'] = {
-                    ['Enabled'] = true,
-                        ['Color'] = Color3.fromRGB(255, 255, 255),
-                    },
+		['Texts'] = {
+			['Name'] = {
+       ['Enabled'] = true,
+				['Color'] = Color3.fromRGB(255, 255, 255),
+			},
 
-                    ['Distance'] = {
-                        ['Enabled'] = true,
-                        ['Color'] = Color3.fromRGB(255, 255, 255),
-                    },
+			['Distance'] = {
+				['Enabled'] = true,
+				['Color'] = Color3.fromRGB(255, 255, 255),
+			},
 
-                    ['Weapon'] = {
-                        ['Enabled'] = true,
-                        ['Color'] = Color3.fromRGB(255, 255, 255),
-                    },
-                },
-            }
-        }
+			['Weapon'] = {
+				['Enabled'] = true,
+				['Color'] = Color3.fromRGB(255, 255, 255),
+			},
+		},
+	}
+}
         local Table = Library['Table'];
 
         local Fonts = {}; do
@@ -136,6 +136,7 @@
                 Id = "Tahoma.ttf",
                 Font = game:HttpGet("https://github.com/i77lhm/storage/raw/refs/heads/main/fonts/fs-tahoma-8px.ttf"),
             })
+
             
 			Fonts.XPTahoma = FontsRegister("XPTahoma", 400, "Normal", {
                 Id = "Tahoma8PTBOLD.ttf",
@@ -156,7 +157,6 @@
                 Id = "ProggyClean.ttf",
                 Font = game:HttpGet("https://github.com/i77lhm/storage/raw/main/fonts/ProggyClean.ttf"),
             })
-
             Library.ProggyTiny = Font.new(Fonts.ProggyClean, Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 			Library.TahomaBold = Font.new(Fonts.XPTahoma, Enum.FontWeight.Regular, Enum.FontStyle.Normal);
             Library.ProggyClean = Font.new(Fonts.ProggyClean, Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -176,7 +176,7 @@
             return New;
         end
 
-        function Library:CreateConnections(Name, Signal, Callback)
+        function Library:CreateThreads(Name, Signal, Callback)
             local Connection = Signal:Connect(Callback);
             self.Threads[Name] = Connection;
             return Connection;
@@ -948,7 +948,6 @@
                 ['LastWeapon'] = nil,
                 ['LastWeaponColor'] = nil,
             }
-
             self:InitEsp(Data);
             self['Cache'][Player] = Data;
 
@@ -1559,7 +1558,7 @@
         end
 
         do
-            Library:CreateConnections('Renderer', RunService.RenderStepped, function()
+            Library:CreateThreads('Renderer', RunService.RenderStepped, function()
                 if not Table['Enabled'] then
                     for _, Data in Library['Cache'] do
                         if Data['Objects']['TargetHolder'].Visible then
@@ -1589,11 +1588,11 @@
                 Library:AddTarget(Player)
             end
 
-            Library:CreateConnections('PlayerAdded', Players.PlayerAdded, function(Player)
+            Library:CreateThreads('PlayerAdded', Players.PlayerAdded, function(Player)
                 Library:AddTarget(Player)
             end)
 
-            Library:CreateConnections('PlayerRemoving', Players.PlayerRemoving, function(Player)
+            Library:CreateThreads('PlayerRemoving', Players.PlayerRemoving, function(Player)
                 Library:RemoveTarget(Player)
             end)
         end
