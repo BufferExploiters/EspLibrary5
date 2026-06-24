@@ -35,75 +35,76 @@
             ['Holder'] = nil,
             ['Threads'] = {},
             ['Connections'] = {},
-        }
 
-        local Table = {
-            ['Enabled'] = true,
-            ['Distance'] = 7520,
-
-            ['Boxes'] = {
+            ['Table'] = {
                 ['Enabled'] = true,
+                ['Distance'] = 7520,
 
-                ['Bounding Box'] = {
+                ['Boxes'] = {
                     ['Enabled'] = true,
-                    ['IncludeAcsessories'] = false,
-                    ['BoxX'] = 0,
-                    ['BoxY'] = 0,
+
+                    ['Bounding Box'] = {
+                        ['Enabled'] = true,
+                        ['IncludeAcsessories'] = false,
+                        ['BoxX'] = 0,
+                        ['BoxY'] = 0,
+                    },
+
+                    ['Box Glow'] = {
+                        ['Enabled'] = true,
+                        ['Top'] = Color3.fromRGB(255, 255, 255),
+                        ['Bot'] = Color3.fromRGB(255, 255, 255),
+                        ['Transparency'] = {0.9, 0.9},
+                    },
+
+                    ['Gradients'] = {
+                        ['Top'] = Color3.fromRGB(255, 255, 255),
+                        ['Bot'] = Color3.fromRGB(0, 0, 0),
+                    },
+
+                    ['Filled'] = {
+                        ['Enabled'] = true,
+                        ['Top'] = Color3.fromRGB(255, 255, 255),
+                        ['Bot'] = Color3.fromRGB(255, 255, 255),
+                        ['Transparency'] = {1, 0.8},
+                    },
                 },
 
-                ['Box Glow'] = {
+                ['Bars'] = {
+                    ['Health Bar'] = {
+                        ['Enabled'] = true,
+                        ['Top'] = Color3.fromRGB(0, 255, 0),
+                        ['Mid'] = Color3.fromRGB(255, 170, 0),
+                        ['Bot'] = Color3.fromRGB(255, 0, 0),
+                    },
+
+                    ['Armor Bar'] = {
+                        ['Enabled'] = false,
+                        ['Top'] = Color3.fromRGB(255, 255, 255),
+                        ['Mid'] = Color3.fromRGB(220, 220, 220),
+                        ['Bot'] = Color3.fromRGB(180, 180, 180),
+                    },
+                },
+
+                ['Texts'] = {
+                    ['Name'] = {
                     ['Enabled'] = true,
-                    ['Top'] = Color3.fromRGB(255, 255, 255),
-                    ['Bot'] = Color3.fromRGB(255, 255, 255),
-                    ['Transparency'] = {0.9, 0.9},
-                },
+                        ['Color'] = Color3.fromRGB(255, 255, 255),
+                    },
 
-                ['Gradients'] = {
-                    ['Top'] = Color3.fromRGB(255, 255, 255),
-                    ['Bot'] = Color3.fromRGB(0, 0, 0),
-                },
+                    ['Distance'] = {
+                        ['Enabled'] = true,
+                        ['Color'] = Color3.fromRGB(255, 255, 255),
+                    },
 
-                ['Filled'] = {
-                    ['Enabled'] = true,
-                    ['Top'] = Color3.fromRGB(255, 255, 255),
-                    ['Bot'] = Color3.fromRGB(255, 255, 255),
-                    ['Transparency'] = {1, 0.8},
+                    ['Weapon'] = {
+                        ['Enabled'] = true,
+                        ['Color'] = Color3.fromRGB(255, 255, 255),
+                    },
                 },
-            },
-
-            ['Bars'] = {
-                ['Health Bar'] = {
-                    ['Enabled'] = true,
-                    ['Top'] = Color3.fromRGB(0, 255, 0),
-                    ['Mid'] = Color3.fromRGB(255, 170, 0),
-                    ['Bot'] = Color3.fromRGB(255, 0, 0),
-                },
-
-                ['Armor Bar'] = {
-                    ['Enabled'] = false,
-                    ['Top'] = Color3.fromRGB(255, 255, 255),
-                    ['Mid'] = Color3.fromRGB(220, 220, 220),
-                    ['Bot'] = Color3.fromRGB(180, 180, 180),
-                },
-            },
-
-            ['Texts'] = {
-                ['Name'] = {
-                ['Enabled'] = true,
-                    ['Color'] = Color3.fromRGB(255, 255, 255),
-                },
-
-                ['Distance'] = {
-                    ['Enabled'] = true,
-                    ['Color'] = Color3.fromRGB(255, 255, 255),
-                },
-
-                ['Weapon'] = {
-                    ['Enabled'] = true,
-                    ['Color'] = Color3.fromRGB(255, 255, 255),
-                },
-            },
+            }
         }
+        local Table = Library['Table'];
 
         local Fonts = {}; do
             local function FontsRegister(Name, Weight, Style, Asset)
@@ -191,7 +192,7 @@
             IgnoreGuiInset = true,
         })
 
-        function Library:InitEsp(Data) -- Init
+        function Library:InitEsp(Data)
             local Objects = Data.Objects
 
             do
@@ -807,7 +808,7 @@
             end
         end
 
-        function Library:CalculateBox(Data) -- Math
+        function Library:CalculateBox(Data)
             local RootPart = Data['RootPart']
 
             if not RootPart then
@@ -866,21 +867,10 @@
                         local PMinX, PMaxX = PartScreen.X - Ex, PartScreen.X + Ex;
                         local PMinY, PMaxY = PartScreen.Y - Ey, PartScreen.Y + Ey;
 
-                        if PMinX < ScrMinX then 
-                            ScrMinX = PMinX; 
-                        end
-
-                        if PMaxX > ScrMaxX then 
-                            ScrMaxX = PMaxX; 
-                        end
-
-                        if PMinY < ScrMinY then 
-                            ScrMinY = PMinY; 
-                        end
-
-                        if PMaxY > ScrMaxY then 
-                            ScrMaxY = PMaxY; 
-                        end
+                        if PMinX < ScrMinX then ScrMinX = PMinX; end
+                        if PMaxX > ScrMaxX then ScrMaxX = PMaxX; end
+                        if PMinY < ScrMinY then ScrMinY = PMinY; end
+                        if PMaxY > ScrMaxY then ScrMaxY = PMaxY; end
                     end;
                 end;
 
@@ -897,7 +887,7 @@
             else
                 local Scale = (RootPart.Size.Y * ViewPortY) / (RootScreen.Z * 2);
                 local W, H = 3 * Scale, 4.5 * Scale;
-                return W, H, RootScreen.X - (W * 1), RootScreen.Y - (H * 1), OnScreen;
+                return W, H, RootScreen.X - (W * 0.5), RootScreen.Y - (H * 0.5), OnScreen;
             end
         end
 
@@ -1199,7 +1189,7 @@
             self['Cache'][Player] = nil;
         end
 
-        function Library:Update(Player, Data) -- Update
+        function Library:Update(Player, Data)
             local Objects = Data['Objects']
 
             if not Data['RootPart'] then
@@ -1217,7 +1207,6 @@
             end
 
             local RootPos = Data['RootPart'].Position
-
             local Distance = Floor((CameraPosition - RootPos).Magnitude)
 
             if Distance > Table['Distance'] then
@@ -1257,11 +1246,9 @@
             if DirtySizes then
                 Objects['TargetHolder'].Size = DimOffset(W, H)
                 Objects['BoxGlow'].Size = DimOffset(W, H)
-
                 Objects['BoxOutlineHolder'].Size = DimOffset(W, H)
                 Objects['BoxInlineHolder'].Size = DimOffset(W + 2, H + 2)
                 Objects['BoxFill'].Size = DimOffset(W, H)
-
                 Data['LastW'] = W
                 Data['LastH'] = H
             end
@@ -1571,7 +1558,7 @@
             end
         end
 
-        do -- Render
+        do
             Library:CreateConnections('Renderer', RunService.RenderStepped, function()
                 if not Table['Enabled'] then
                     for _, Data in Library['Cache'] do
@@ -1597,7 +1584,7 @@
             end)
         end
 
-        do -- Adding
+        do
             for _, Player in Players:GetPlayers() do
                 Library:AddTarget(Player)
             end
@@ -1611,7 +1598,7 @@
             end)
         end
 
-        do -- Unload
+        do
             function Library:Unload()
                 for Player in self['Cache'] do
                     self:RemoveTarget(Player);
